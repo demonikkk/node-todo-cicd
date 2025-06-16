@@ -13,24 +13,32 @@
       box-sizing: border-box;
     }
 
-    body {
+    body, html {
       margin: 0;
       padding: 0;
+      height: 100%;
       font-family: 'Shadows Into Light', cursive;
-      background: linear-gradient(to right, #e0c3fc, #8ec5fc);
-      overflow-x: hidden;
-      position: relative;
+      color: #333;
+    }
+
+    #vanta-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
     }
 
     .container {
       max-width: 800px;
       margin: 60px auto;
-      background-color: rgba(255, 255, 255, 0.85);
+      background-color: rgba(255, 255, 255, 0.9);
       border-radius: 20px;
       padding: 30px;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-      position: relative;
       z-index: 2;
+      position: relative;
     }
 
     h1 {
@@ -127,25 +135,15 @@
     .todo-form input[type="submit"]:hover {
       background-color: #5a2d6d;
     }
-
-    /* Particle background canvas */
-    #particles-js {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      top: 0;
-      left: 0;
-    }
   </style>
 </head>
 <body>
 
-<!-- Particle background -->
-<div id="particles-js"></div>
+<!-- Vanta.js Background -->
+<div id="vanta-bg"></div>
 
 <div class="container">
-  <h1>✨ Tun Tun Pavi Kirmada's Notes ✨</h1>
+  <h1>🌊 Tun Tun's Vanta Notes</h1>
 
   <ul class="todo-list">
     <% todolist.forEach(function(todo, index) { %>
@@ -158,37 +156,29 @@
   </ul>
 
   <form class="todo-form" action="/todo/add/" method="POST">
-    <label for="newtodo">Jaldi se notes likh vrna pitti kar dunga:</label>
+    <label for="newtodo">Jaldi se notes likh vrna pitti pitti kr dunga</label>
     <input type="text" id="newtodo" name="newtodo" required autofocus />
-    <input type="submit" value="idhr se save hoga 😡" />
+    <input type="submit" value="idhr se save hoga :)" />
   </form>
 </div>
 
-<!-- Particles.js script -->
-<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<!-- Vanta.js + Three.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
 <script>
-  particlesJS('particles-js', {
-    "particles": {
-      "number": {
-        "value": 80
-      },
-      "color": {
-        "value": "#6c3483"
-      },
-      "shape": {
-        "type": "circle"
-      },
-      "opacity": {
-        "value": 0.3
-      },
-      "size": {
-        "value": 3
-      },
-      "move": {
-        "enable": true,
-        "speed": 1
-      }
-    }
+  VANTA.WAVES({
+    el: "#vanta-bg",
+    mouseControls: true,
+    touchControls: true,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    scale: 1.00,
+    scaleMobile: 1.00,
+    color: 0x6c3483,
+    shininess: 50.00,
+    waveHeight: 20.00,
+    waveSpeed: 1.25,
+    zoom: 0.85
   });
 </script>
 

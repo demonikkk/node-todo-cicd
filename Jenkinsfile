@@ -1,19 +1,19 @@
-pipeline{
+pipeline {
     agent any
 
-    stages{
-        stage('code'){
-            steps{
-                git url: 'https://github.com/demonikkk/node-todo-cicd.git'
+    stages {
+        stage('code') {
+            steps {
+                checkout scm
             }
         }
-        stage('image'){
-            script{
+        stage('image') {
+            script {
                 sh "docker build -t kirmanda ."
             }
         }
-        stage('container'){
-            script{
+        stage('container') {
+            script {
                 sh """
                 docker kill kirmada || true
                 docker rm kirmada || true
@@ -23,11 +23,11 @@ pipeline{
         }
     }
 
-    post{
-        success{
+    post {
+        success {
             echo "site deployed successfully."
         }
-        failure{
+        failure {
             echo "site deployement failed."
         }
     }

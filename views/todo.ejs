@@ -1,183 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>TODO by Tun Tun Kirmanda</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <title>TODO by Tun Tun  Pavi Kirmanda</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #f6d8f7, #d6c2ff);
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
 
-        header {
-            background-color: #8E44AD;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-        header h1 {
-            margin: 0;
-            font-size: 2rem;
-        }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Shadows Into Light', cursive;
+      background: linear-gradient(to right, #e0c3fc, #8ec5fc);
+      overflow-x: hidden;
+      position: relative;
+    }
 
-        main {
-            max-width: 700px;
-            margin: 40px auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-        }
+    .container {
+      max-width: 800px;
+      margin: 60px auto;
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 2;
+    }
 
-        ul.todo-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+    h1 {
+      text-align: center;
+      font-size: 3rem;
+      color: #6c3483;
+      margin-bottom: 30px;
+    }
 
-        ul.todo-list li {
-            background: #f9f9f9;
-            margin-bottom: 15px;
-            padding: 15px 20px;
-            border-radius: 8px;
-            position: relative;
-            font-size: 1.1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            transition: background 0.3s;
-        }
+    ul.todo-list {
+      list-style: none;
+      padding: 0;
+    }
 
-        ul.todo-list li:hover {
-            background: #f0f0f0;
-        }
+    ul.todo-list li {
+      background: #fff;
+      margin-bottom: 15px;
+      padding: 18px 25px;
+      border-radius: 12px;
+      font-size: 1.5rem;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease-in-out;
+    }
 
-        .edit-btn, .delete-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 4px;
-            transition: background 0.3s;
-        }
+    ul.todo-list li:hover {
+      transform: scale(1.01);
+    }
 
-        .edit-btn {
-            right: 60px;
-            background-color: #FFC107;
-            color: #fff;
-        }
+    .edit-btn,
+    .delete-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      font-size: 1.2rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: bold;
+      color: white;
+    }
 
-        .edit-btn:hover {
-            background-color: #e0a800;
-        }
+    .edit-btn {
+      right: 60px;
+      background-color: #f0ad4e;
+    }
 
-        .delete-btn {
-            right: 15px;
-            background-color: #E74C3C;
-            color: #fff;
-        }
+    .delete-btn {
+      right: 15px;
+      background-color: #e74c3c;
+    }
 
-        .delete-btn:hover {
-            background-color: #c0392b;
-        }
+    .edit-btn:hover {
+      background-color: #ec971f;
+    }
 
-        form.todo-form {
-            margin-top: 30px;
-        }
+    .delete-btn:hover {
+      background-color: #c0392b;
+    }
 
-        .todo-form label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
+    form.todo-form {
+      margin-top: 40px;
+    }
 
-        .todo-form input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            font-size: 1rem;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            margin-bottom: 15px;
-            transition: border 0.3s;
-        }
+    .todo-form label {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      display: block;
+      color: #6c3483;
+    }
 
-        .todo-form input[type="text"]:focus {
-            border-color: #8E44AD;
-            outline: none;
-        }
+    .todo-form input[type="text"] {
+      width: 100%;
+      padding: 14px;
+      font-size: 1.2rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
 
-        .todo-form input[type="submit"] {
-            background-color: #8E44AD;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
+    .todo-form input[type="submit"] {
+      background-color: #6c3483;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      width: 100%;
+    }
 
-        .todo-form input[type="submit"]:hover {
-            background-color: #732d91;
-        }
+    .todo-form input[type="submit"]:hover {
+      background-color: #5a2d6d;
+    }
 
-        @media (max-width: 768px) {
-            main {
-                margin: 20px;
-                padding: 20px;
-            }
-
-            .edit-btn, .delete-btn {
-                font-size: 1rem;
-                right: 40px;
-            }
-        }
-    </style>
-    <script>
-        // Optional: Confirm before delete
-        function confirmDelete(event, index) {
-            if (!confirm('Are you sure you want to delete this note?')) {
-                event.preventDefault();
-            }
-        }
-    </script>
+    /* Particle background canvas */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      top: 0;
+      left: 0;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-    <h1>📝 Keep Notes by Tun Tun Pavi Kirmanda</h1>
-</header>
+<!-- Particle background -->
+<div id="particles-js"></div>
 
-<main>
-    <ul class="todo-list">
-        <% todolist.forEach(function(todo, index) { %>
-            <li>
-                <a href="/todo/delete/<%= index %>" class="delete-btn" title="Delete" onclick="confirmDelete(event, <%= index %>)">✘</a>
-                <a href="/todo/<%= index %>" class="edit-btn" title="Edit">✎</a>
-                <%- todo %>
-            </li>
-        <% }); %>
-    </ul>
+<div class="container">
+  <h1>✨ Tun Tun's Magic Notes ✨</h1>
 
-    <form class="todo-form" action="/todo/add/" method="POST">
-        <label for="newtodo">jaldi se notes likh vrna pitti kr dunga :</label>
-        <input type="text" id="newtodo" name="newtodo" required autofocus />
-        <input type="submit" value="Add Note" />
-    </form>
-</main>
+  <ul class="todo-list">
+    <% todolist.forEach(function(todo, index) { %>
+      <li>
+        <a href="/todo/<%= index %>" class="edit-btn">✎</a>
+        <a href="/todo/delete/<%= index %>" class="delete-btn" onclick="return confirm('Delete this note?')">✘</a>
+        <%- todo %>
+      </li>
+    <% }); %>
+  </ul>
+
+  <form class="todo-form" action="/todo/add/" method="POST">
+    <label for="newtodo">Add your note:</label>
+    <input type="text" id="newtodo" name="newtodo" required autofocus />
+    <input type="submit" value="Add Note" />
+  </form>
+</div>
+
+<!-- Particles.js script -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+  particlesJS('particles-js', {
+    "particles": {
+      "number": {
+        "value": 80
+      },
+      "color": {
+        "value": "#6c3483"
+      },
+      "shape": {
+        "type": "circle"
+      },
+      "opacity": {
+        "value": 0.3
+      },
+      "size": {
+        "value": 3
+      },
+      "move": {
+        "enable": true,
+        "speed": 1
+      }
+    }
+  });
+</script>
 
 </body>
 </html>

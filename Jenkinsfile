@@ -1,40 +1,34 @@
-pipeline {
-    agent { label "dev-server"}
-    
-    stages {
-        
-        stage("code"){
+pipeline{
+    any agent
+
+    stages{
+        stage('code'){
             steps{
-                git url: "https://github.com/LondheShubham153/node-todo-cicd.git", branch: "master"
-                echo 'bhaiyya code clone ho gaya'
+                git url: 'https://github.com/demonikkk/node-todo-cicd.git'
             }
         }
-        stage("build and test"){
-            steps{
-                sh "docker build -t node-app-test-new ."
-                echo 'code build bhi ho gaya'
+        stage('image'){
+            script{
+                sh "docker build -t kirmanda ."
             }
         }
-        stage("scan image"){
-            steps{
-                echo 'image scanning ho gayi'
+        stage('container'){
+            script{
+                sh """
+                docker kill kirmada || true
+                docker rm kirmada || true
+                docker run -d -p 8000:80 --name kirmada kirmanda
+                """
             }
         }
-        stage("push"){
-            steps{
-                withCredentials([usernamePassword(credentialsId:"dockerHub",passwordVariable:"dockerHubPass",usernameVariable:"dockerHubUser")]){
-                sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPass}"
-                sh "docker tag node-app-test-new:latest ${env.dockerHubUser}/node-app-test-new:latest"
-                sh "docker push ${env.dockerHubUser}/node-app-test-new:latest"
-                echo 'image push ho gaya'
-                }
-            }
+    }
+
+    post{
+        success{
+            echo "site deployed successfully."
         }
-        stage("deploy"){
-            steps{
-                sh "docker-compose down && docker-compose up -d"
-                echo 'deployment ho gayi'
-            }
+        failure{
+            echo "site deployement failed."
         }
     }
 }

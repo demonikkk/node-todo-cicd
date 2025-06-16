@@ -1,111 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>KIRMDA HU MAI</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #F0C1E1;
-                color: #333;
-                margin: 0;
-                padding: 0;
-            }
+<head>
+    <meta charset="UTF-8">
+    <title>TODO by Tun Tun Kirmanda</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-            h1 {
-                background-color: #CB9DF0;
-                color: black;
-                margin: 0;
+    <!-- Google Fonts for better typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f6d8f7, #d6c2ff);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #8E44AD;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        main {
+            max-width: 700px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        ul.todo-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul.todo-list li {
+            background: #f9f9f9;
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            position: relative;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: background 0.3s;
+        }
+
+        ul.todo-list li:hover {
+            background: #f0f0f0;
+        }
+
+        .edit-btn, .delete-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .edit-btn {
+            right: 50px;
+            color: #FFC107;
+        }
+
+        .delete-btn {
+            right: 15px;
+            color: #E74C3C;
+        }
+
+        form.todo-form {
+            margin-top: 30px;
+        }
+
+        .todo-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .todo-form input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+            transition: border 0.3s;
+        }
+
+        .todo-form input[type="text"]:focus {
+            border-color: #8E44AD;
+            outline: none;
+        }
+
+        .todo-form input[type="submit"] {
+            background-color: #8E44AD;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .todo-form input[type="submit"]:hover {
+            background-color: #732d91;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                margin: 20px;
                 padding: 20px;
-                text-align: center;
             }
 
-            ul {
-                list-style: none;
-                padding: 0;
-            }
-
-            ul li {
-                background: #F0C1E1;
-                border: 1px solid #ddd;
-                margin-bottom: 10px;
-                padding: 10px;
-                position: relative;
-            }
-
-            ul li a {
-                color: #333;
-                text-decoration: none;
-                font-weight: bold;
-            }
-
-            ul li a:hover {
-                color: #4CAF50;
-            }
-
-            .delete-btn {
-                color: red;
-                position: absolute;
-                right: 10px;
-                top: 10px;
-            }
-
-            .edit-btn {
-                color: #FFC107;
-                position: absolute;
+            .edit-btn, .delete-btn {
+                font-size: 1rem;
                 right: 40px;
-                top: 10px;
             }
+        }
+    </style>
+</head>
+<body>
 
-            form {
-                background: #F0C1E1;
-                padding: 20px;
-                margin-top: 20px;
-            }
+    <header>
+        <h1>📝 Keep Notes by Tun Tun Kirmanda</h1>
+    </header>
 
-            label {
-                display: block;
-                margin-bottom: 10px;
-            }
-
-            input[type="text"] {
-                width: 100%;
-                padding: 10px;
-                margin-bottom: 10px;
-                border: 1px solid #ddd;
-            }
-
-            input[type="submit"] {
-                background-color: #4CAF50;
-                color: white;
-                border: none;
-                padding: 10px 20px;
-                cursor: pointer;
-            }
-
-            input[type="submit"]:hover {
-                background-color: #45a049;
-            }
-        </style>
-    </head>
-
-    <body>
-        <h1>Keep Notes by tun tun kirmanda</h1>
-        <ul>
+    <main>
+        <ul class="todo-list">
             <% todolist.forEach(function(todo, index) { %>
-            <li>
-                <a href="/todo/delete/<%= index %>" class="delete-btn">✘</a>
-                <a href="/todo/<%= index %>" class="edit-btn">✎</a>
-                <%- todo %>
-            </li>
+                <li>
+                    <a href="/todo/delete/<%= index %>" class="delete-btn" title="Delete">✘</a>
+                    <a href="/todo/<%= index %>" class="edit-btn" title="Edit">✎</a>
+                    <%- todo %>
+                </li>
             <% }); %>
         </ul>
 
-        <form action="/todo/add/" method="post">
-            <p>
-                <label for="newtodo">Add your notes here asap</label>
-                <input type="text" name="newtodo" id="newtodo" autofocus />
-                <input type="submit" value="Add" />
-            </p>
+        <form class="todo-form" action="/todo/add/" method="POST">
+            <label for="newtodo">Add your note:</label>
+            <input type="text" id="newtodo" name="newtodo" required autofocus />
+            <input type="submit" value="Add Note" />
         </form>
-    </body>
+    </main>
+
+</body>
 </html>

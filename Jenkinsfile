@@ -8,17 +8,21 @@ pipeline {
             }
         }
         stage('image') {
-            script {
+            steps {
+                script {
                 sh "docker build -t kirmanda ."
+                }
             }
         }
         stage('container') {
-            script {
+            steps {
+                script {
                 sh """
                 docker kill kirmada || true
                 docker rm kirmada || true
                 docker run -d -p 8000:80 --name kirmada kirmanda
                 """
+                }
             }
         }
     }

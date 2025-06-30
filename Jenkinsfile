@@ -4,41 +4,35 @@ pipeline {
     stages {
         stage('code') {
             steps {
-                sh 'git clone https://github.com/demonikkk/breathefree.git'
+                checkout scm
             }
         }
-
-        stage('Image build') {
+        stage('image') {
             steps {
-                sh 'docker build -t demon .'
+                script {
+                sh "docker build -t kirmanda ."
+                }
             }
         }
-
-        stage('git hub push') {
+        stage('container') {
             steps {
-                sh 'docker tag demon demonikk/breathefree:0.1.0'
+                script {
+                sh """
+                docker kill kirmada || true
+                docker rm kirmada || true
+                docker run -d -p 80:80 --name kirmada kirmanda
+                """
+                }
             }
         }
+    }
 
-        stage('image push') {
-            steps {
-                sh '''
-                    docker login -u demonikk -p rickANDmorty
-                    docker push demonikk/breathefree:0.1.0
-                '''
-            }
+    post {
+        success {
+            echo "site deployed successfully."
         }
-
-        stage('ssh login') {
-	        steps {
-                 sh '''
-            	     ssh -o StrictHostKeyChecking=no -i /home/ubuntu/terra.pem ubuntu@3.27.213.172 << EOF
-           	         cd ~/terraform/breathefree
-            	     terraform init
-                     terraform apply -auto-approve
-            	     EOF
-        	     '''
-    		}
-	    }
-	}
+        failure {
+            echo "site deployement failed."
+        }
+    }
 }
